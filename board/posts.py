@@ -41,5 +41,8 @@ def create():
 
 @bp.route("/posts")
 def posts():
-    posts = []
+    db = get_db()
+    posts = db.execute(
+        "SELECT author, message, created FROM post ORDER BY created DESC"
+    ).fetchall()
     return render_template("posts/posts.html", posts=posts)
